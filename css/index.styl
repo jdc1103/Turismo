@@ -1,0 +1,123 @@
+colorLetra = rgb(3,160,175)
+verde = rgb(179,210,54)
+
+azul = #22BCE0
+gris_oscuro = #101010
+gris_texto = #999
+gris_claro = #eee
+naranja = #DD4F24
+
+html
+	background gris_claro
+body
+	display block
+	margin auto
+	width 900px
+	position relative
+
+footer 
+	//position absolute
+	//bottom 0
+	background gris_oscuro 
+	color gris_texto
+	padding 1em 0
+	text-align center
+	width 100%
+	margin-top 3em
+
+	h3
+		font-size 14px
+		font-weight bold
+
+
+header 
+	background gris_oscuro
+	display block
+	padding 0.5em
+	overflow hidden
+	color gris_texto
+	
+	h1, h3
+		padding-left 140px
+		line-height 0.5em
+	.logo
+		float left
+		img
+			width 100px
+
+nav
+	background azul
+	width 100%
+	display block
+	position relative
+	
+	.menu
+		height 40px
+		line-height 40px
+		margin 0
+		padding 0
+		overflow-x auto
+		white-space nowrap
+		li
+			display inline-block
+
+			a
+				color white
+				display block
+				margin 0 0.5em
+				padding 0 0.2em
+				text-decoration none
+
+.sitios
+	display inline-block
+	width 60%
+
+	article
+		border solid 1px gris_oscuro
+		border-radius 0 0 10px 10px
+		box-shadow 1px 1px 5px rgba(black, 0.5)
+		display inline-block
+		margin-top 0.5em
+		overflow hidden
+		width 45%
+		height 16em
+		position relative
+		&:nth-child(odd)
+			margin-right 3%
+
+		a
+			background #B6B8AB
+			border-radius 0 0 10px 10px
+			top 15em
+			left 0
+			position absolute
+			text-align center
+			width 100%
+			text-decoration none
+			color gris_texto
+			
+	figure
+		padding 0
+		float left
+		margin 0 0.5em 0 0
+		img
+			border-radius 0 0 20px 0
+			width 100px
+	p 
+		text-align justify
+		padding 0.5em
+
+.mapaGeneral
+	border solid black
+	display inline-block
+	float right
+	margin-top 0.5em
+	width 38%
+
+
+	.map_canvas
+		display block
+		height 250px
+		margin 0
+		width 100%
+
