@@ -23,11 +23,41 @@
 	</header>
 	<nav>
 		<ul class="menu">
-			<li><a href="#">Administrar sitios</a></li>
-			<li><a href="#">menu 2</a></li>
-			<li><a href="#">menu 3</a></li>
+			<li><a href="#" id="admSitios">Administrar sitios</a></li>
+			<li><a href="#" id="agregar">Agregar sitio</a></li>
+			
 		</ul>
 	</nav>
+	<div class="agregar">
+		<form action="">
+			<div class="datosSitio">
+				<p>
+					<label for="nombre">nombre</label>
+					<input type="text" id="nombre">
+				</p>
+				<p>
+					<label for="ubicación">Ubicación</label>
+					<input type="text" id="ubicación">
+				</p>
+				<p>
+					<label for="temperatura">Temperatura</label>
+					<input type="number" id="temperatura"  min="1" max="40">
+				</p>
+				<p>
+					<label for="contacto">Contacto</label>
+					<input type="text" id="contacto"  min="1" max="40">
+				</p>
+				<p>
+					<label for="cordenadas">Cordenadas</label>
+					<input type="number" id="cordenadas"  min="1" max="40">
+				</p>
+			</div>
+			<div class="historia">
+				<textarea id="descripcion" rows="4" cols="30" placeholder="Escribe algo sobre este nuevo sitio"></textarea>
+				<textarea id="historia" rows="4" cols="30" placeholder="Cuentanos la historia del sitio que deseas crear"></textarea>
+			</div>
+		</form>
+	</div>
 	<form action="" class="login">
 		<p>
 			<label for="user">Usuario</label>
@@ -35,9 +65,9 @@
 		</p>
 		<p>
 			<label for="password">Contraseña</label>
-			<input type="text" id="password">
+			<input type="password" id="password">
 		</p>
-		<button id="iniciar">Iniciar</button>
+		<input type="submit" value="Iniciar">
 	</form>
 	<section class="sitios">
 		<?php 
