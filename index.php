@@ -1,4 +1,8 @@
 <?php
+	require("php/conexion.php");
+	require("php/procesos.php");
+	$sql = "SELECT id, nombre, descripcion, img_min FROM sitios";
+	$result = mysql_query($sql);
 ?>
 
 <!doctype html>
@@ -24,77 +28,23 @@
 			<li><a href="#">menu 3</a></li>
 		</ul>
 	</nav>
+	<form action="" class="login">
+		<p>
+			<label for="user">Usuario</label>
+			<input type="text" id="user">
+		</p>
+		<p>
+			<label for="password">Contraseña</label>
+			<input type="text" id="password">
+		</p>
+		<button id="iniciar">Iniciar</button>
+	</form>
 	<section class="sitios">
-		<article>
-			<figure>
-				<img src="image/prueba.jpg" alt="imagen">
-			</figure>
-			<div class="acciones">
-				<a href="#" class="editar"></a>
-				<a href="#" class="borrar"></a>
-			</div>
-			<h3>
-				titulo sitio
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, aliquid, perspiciatis blanditiis velit consectetur assumenda totam sed deserunt officiis vitae dolorum laborum obcaecati. Inventore, incidunt deserunt ut doloremque magni totam.</p>
-			<a href="#" class="moreInfo">Mas información</a>
-		</article>
-		<article>
-			<figure>
-				<img src="image/prueba.jpg" alt="imagen">
-			</figure>
-			<div class="acciones">
-				<a href="#" class="editar"></a>
-				<a href="#" class="borrar"></a>
-			</div>
-			<h3>
-				titulo sitio
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, aliquid, perspiciatis blanditiis velit consectetur assumenda totam sed deserunt officiis vitae dolorum laborum obcaecati. Inventore, incidunt deserunt ut doloremque magni totam.</p>
-			<a href="#" class="moreInfo">Mas información</a>
-		</article>
-		<article>
-			<figure>
-				<img src="image/prueba.jpg" alt="imagen">
-			</figure>
-			<div class="acciones">
-				<a href="#" class="editar"></a>
-				<a href="#" class="borrar"></a>
-			</div>
-			<h3>
-				titulo sitio
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, aliquid, perspiciatis blanditiis velit consectetur assumenda totam sed deserunt officiis vitae dolorum laborum obcaecati. Inventore, incidunt deserunt ut doloremque magni totam.</p>
-			<a href="#" class="moreInfo">Mas información</a>
-		</article>
-		<article>
-			<figure>
-				<img src="image/prueba.jpg" alt="imagen">
-			</figure>
-			<div class="acciones">
-				<a href="#" class="editar"></a>
-				<a href="#" class="borrar"></a>
-			</div>
-			<h3>
-				titulo sitio
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, aliquid, perspiciatis blanditiis velit consectetur assumenda totam sed deserunt officiis vitae dolorum laborum obcaecati. Inventore, incidunt deserunt ut doloremque magni totam.</p>
-			<a href="#" class="moreInfo">Mas información</a>
-		</article>
-		<article>
-			<figure>
-				<img src="image/prueba.jpg" alt="imagen">
-			</figure>
-			<div class="acciones">
-				<a href="#" class="editar"></a>
-				<a href="#" class="borrar"></a>
-			</div>
-			<h3>
-				titulo sitio
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, aliquid, perspiciatis blanditiis velit consectetur assumenda totam sed deserunt officiis vitae dolorum laborum obcaecati. Inventore, incidunt deserunt ut doloremque magni totam.</p>
-			<a href="#" class="moreInfo">Mas información</a>
-		</article>
+		<?php 
+			while($data = mysql_fetch_array($result)){
+				template($data['id'], $data['img_min'],$data['nombre'],$data['descripcion']);
+			}
+		 ?>
 	</section>
 	<section class="mapaGeneral">
 		<div class="map_canvas"></div>

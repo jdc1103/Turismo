@@ -1,9 +1,4 @@
 <?php
-	//conectar a db
-	$conexion = pg_connect("host='localhost' port='5432' dbname='opif' user='dba' password='123' ");
-	
-	//estructura de control por si falla
-	if(!$conexion){
-		die("Error de conexion.".pg_last_error());
-	}
+	$conexion = mysql_connect("localhost","root","") or die ('No he podido conectar: '.mysql_error());
+	mysql_select_db("turismo",$conexion);
 ?>
