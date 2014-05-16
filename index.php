@@ -1,4 +1,8 @@
 <?php
+	require("php/conexion.php");
+	require("php/procesos.php");
+	$sql = "SELECT id, nombre, descripcion, img_min FROM sitios";
+	$result = mysql_query($sql);
 ?>
 
 <!doctype html>
@@ -19,82 +23,58 @@
 	</header>
 	<nav>
 		<ul class="menu">
-			<li><a href="#">Administrar sitios</a></li>
-			<li><a href="#">menu 2</a></li>
-			<li><a href="#">menu 3</a></li>
+			<li><a href="#" id="admSitios">Administrar sitios</a></li>
+			<li><a href="#" id="agregar">Agregar sitio</a></li>
+			
 		</ul>
 	</nav>
+	<div class="agregar">
+		<form action="">
+			<div class="datosSitio">
+				<p>
+					<label for="nombre">nombre</label>
+					<input type="text" id="nombre">
+				</p>
+				<p>
+					<label for="ubicación">Ubicación</label>
+					<input type="text" id="ubicación">
+				</p>
+				<p>
+					<label for="temperatura">Temperatura</label>
+					<input type="number" id="temperatura"  min="1" max="40">
+				</p>
+				<p>
+					<label for="contacto">Contacto</label>
+					<input type="text" id="contacto"  min="1" max="40">
+				</p>
+				<p>
+					<label for="cordenadas">Cordenadas</label>
+					<input type="number" id="cordenadas"  min="1" max="40">
+				</p>
+			</div>
+			<div class="historia">
+				<textarea id="descripcion" rows="4" cols="30" placeholder="Escribe algo sobre este nuevo sitio"></textarea>
+				<textarea id="historia" rows="4" cols="30" placeholder="Cuentanos la historia del sitio que deseas crear"></textarea>
+			</div>
+		</form>
+	</div>
+	<form action="" class="login">
+		<p>
+			<label for="user">Usuario</label>
+			<input type="text" id="user">
+		</p>
+		<p>
+			<label for="password">Contraseña</label>
+			<input type="password" id="password">
+		</p>
+		<input type="submit" value="Iniciar">
+	</form>
 	<section class="sitios">
-		<article>
-			<figure>
-				<img src="image/prueba.jpg" alt="imagen">
-			</figure>
-			<div class="acciones">
-				<a href="#" class="editar"></a>
-				<a href="#" class="borrar"></a>
-			</div>
-			<h3>
-				titulo sitio
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, aliquid, perspiciatis blanditiis velit consectetur assumenda totam sed deserunt officiis vitae dolorum laborum obcaecati. Inventore, incidunt deserunt ut doloremque magni totam.</p>
-			<a href="#" class="moreInfo">Mas información</a>
-		</article>
-		<article>
-			<figure>
-				<img src="image/prueba.jpg" alt="imagen">
-			</figure>
-			<div class="acciones">
-				<a href="#" class="editar"></a>
-				<a href="#" class="borrar"></a>
-			</div>
-			<h3>
-				titulo sitio
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, aliquid, perspiciatis blanditiis velit consectetur assumenda totam sed deserunt officiis vitae dolorum laborum obcaecati. Inventore, incidunt deserunt ut doloremque magni totam.</p>
-			<a href="#" class="moreInfo">Mas información</a>
-		</article>
-		<article>
-			<figure>
-				<img src="image/prueba.jpg" alt="imagen">
-			</figure>
-			<div class="acciones">
-				<a href="#" class="editar"></a>
-				<a href="#" class="borrar"></a>
-			</div>
-			<h3>
-				titulo sitio
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, aliquid, perspiciatis blanditiis velit consectetur assumenda totam sed deserunt officiis vitae dolorum laborum obcaecati. Inventore, incidunt deserunt ut doloremque magni totam.</p>
-			<a href="#" class="moreInfo">Mas información</a>
-		</article>
-		<article>
-			<figure>
-				<img src="image/prueba.jpg" alt="imagen">
-			</figure>
-			<div class="acciones">
-				<a href="#" class="editar"></a>
-				<a href="#" class="borrar"></a>
-			</div>
-			<h3>
-				titulo sitio
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, aliquid, perspiciatis blanditiis velit consectetur assumenda totam sed deserunt officiis vitae dolorum laborum obcaecati. Inventore, incidunt deserunt ut doloremque magni totam.</p>
-			<a href="#" class="moreInfo">Mas información</a>
-		</article>
-		<article>
-			<figure>
-				<img src="image/prueba.jpg" alt="imagen">
-			</figure>
-			<div class="acciones">
-				<a href="#" class="editar"></a>
-				<a href="#" class="borrar"></a>
-			</div>
-			<h3>
-				titulo sitio
-			</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa, aliquid, perspiciatis blanditiis velit consectetur assumenda totam sed deserunt officiis vitae dolorum laborum obcaecati. Inventore, incidunt deserunt ut doloremque magni totam.</p>
-			<a href="#" class="moreInfo">Mas información</a>
-		</article>
+		<?php 
+			while($data = mysql_fetch_array($result)){
+				template($data['id'], $data['img_min'],$data['nombre'],$data['descripcion']);
+			}
+		 ?>
 	</section>
 	<section class="mapaGeneral">
 		<div class="map_canvas"></div>

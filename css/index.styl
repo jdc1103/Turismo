@@ -80,6 +80,31 @@ nav
 				padding 0 0.2em
 				text-decoration none
 
+			#agregar
+				display none
+
+.agregar
+	display none
+	border solid azul
+	border-radius 0 0 1em 1em
+	.datosSitio
+		border-right gris_texto dashed
+		display inline-block
+		padding-left .5em
+		text-align right
+		p
+			margin 1em .5em .3em 0
+			input
+				display inlineblock
+				width 150px
+	.historia
+		display inline-block
+		padding-left .5em
+		textarea
+			display block
+			margin-bottom .5em
+		
+
 .sitios
 	display inline-block
 	width 60%
@@ -155,7 +180,7 @@ nav
 	display inline-block
 	float right
 	margin-top 0.5em
-	width 38%
+	width 38%º
 
 	.map_canvas
 		display block
@@ -163,7 +188,18 @@ nav
 		margin 0
 		width 100%
 
+.login
+	background gris_claro
+	border-radius 10px
+	box-shadow 0px 0px 10px gris_oscuro
+	display none
+	font-size 0.8em
+	padding 10px
+	position absolute
+	text-align right
+	z-index 2
 
+	
 ::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
