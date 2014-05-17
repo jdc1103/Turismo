@@ -10,6 +10,22 @@ $(function(){
 			initialize();
 		});
 	});
+
+	$('#agregarSitio').on('submit', function(event){
+		event.preventDefault();	
+		var variables = new Array();
+		variables.push($('#nombre').val());
+		variables.push($('#ubicacion').val());
+		variables.push($('#temperatura').val());
+		variables.push($('#contacto').val());
+		variables.push($('#coordenadas').val());
+		variables.push($('#descripcion').val());
+		variables.push($('#historia').val());
+		console.log(JSON.stringify(variables));
+		$.post('php/procesos.php',{op:"addSitio", data:variables}, function(data, textStatus, xhr) {
+			template(data, "logo.png", variables[0], variables[5]);
+		});
+	})
 	$('.login').on('submit', function(event){
 		event.preventDefault();
 		var user = $('#user').val();
@@ -45,4 +61,9 @@ function placeMarker(location, map) {
 	});
 	
 	$('#coordenadas').val(location);
+}
+
+function template(id,imgMin, titulo, parrafo){
+	var article = '<article><figure> <img src="image/sitios/'+imgMin+'" alt="imagen"> </figure> <div class="acciones"> <a href="#'+id+'" class="editar"></a> <a href="#'+id+'" class="borrar"></a> </div> <h3> '+titulo+'</h3> <p>'+parrafo+'</p> <a href="#'+id+'" class="moreInfo">Mas información</a> </article>'; 
+	$('.sitios').prepend(article);
 }

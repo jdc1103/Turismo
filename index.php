@@ -1,7 +1,7 @@
 <?php
 	require("php/conexion.php");
 	require("php/procesos.php");
-	$sql = "SELECT id, nombre, descripcion, img_min FROM sitios";
+	$sql = "SELECT id, nombre, descripcion, img_min FROM sitios ORDER BY id DESC";
 	$result = mysql_query($sql);
 ?>
 
@@ -28,7 +28,7 @@
 		</ul>
 	</nav>
 	<div class="agregar">
-		<form action="">
+		<form action="" id="agregarSitio">
 			<div class="datosSitio">
 				<p>
 					<label for="nombre">nombre</label>
@@ -36,7 +36,7 @@
 				</p>
 				<p>
 					<label for="ubicación">Ubicación</label>
-					<input type="text" id="ubicación">
+					<input type="text" id="ubicacion">
 				</p>
 				<p>
 					<label for="temperatura">Temperatura</label>
@@ -48,12 +48,13 @@
 				</p>
 				<p>
 					<label for="coordenadas">Coordenadas</label>
-					<input type="text" id="coordenadas"  min="1" max="40">
+					<input type="text" id="coordenadas" placeholder="Haz click en el mapa" min="1" max="40">
 				</p>
 			</div>
 			<div class="historia">
 				<textarea id="descripcion" rows="4" cols="30" placeholder="Escribe algo sobre este nuevo sitio"></textarea>
 				<textarea id="historia" rows="4" cols="30" placeholder="Cuentanos la historia del sitio que deseas crear"></textarea>
+				<input type="submit" value="Guardar">
 			</div>
 			<div class="mapaC">
 				<div id="mapaAgregar"></div>
