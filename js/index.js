@@ -21,6 +21,7 @@ $(function(){
 		variables.push($('#coordenadas').val());
 		variables.push($('#descripcion').val());
 		variables.push($('#historia').val());
+
 		console.log(JSON.stringify(variables));
 		$.post('php/procesos.php',{op:"addSitio", data:variables}, function(data, textStatus, xhr) {
 			template(data, "logo.png", variables[0], variables[5]);
