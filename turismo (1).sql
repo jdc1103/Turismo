@@ -2,7 +2,7 @@
 -- version 4.0.4.1
 -- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
+-- Servidor: 127.0.0.
 -- Tiempo de generación: 16-05-2014 a las 06:39:47
 -- Versión del servidor: 5.5.32
 -- Versión de PHP: 5.4.16
