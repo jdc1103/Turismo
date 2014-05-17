@@ -1,7 +1,7 @@
 <?php
 	require("php/conexion.php");
 	require("php/procesos.php");
-	$sql = "SELECT id, nombre, descripcion, img_min FROM sitios";
+	$sql = "SELECT id, nombre, descripcion, img_min FROM sitios ORDER BY id DESC";
 	$result = mysql_query($sql);
 ?>
 
@@ -25,11 +25,10 @@
 		<ul class="menu">
 			<li><a href="#" id="admSitios">Administrar sitios</a></li>
 			<li><a href="#" id="agregar">Agregar sitio</a></li>
-			
 		</ul>
 	</nav>
 	<div class="agregar">
-		<form action="">
+		<form action="" id="agregarSitio">
 			<div class="datosSitio">
 				<p>
 					<label for="nombre">nombre</label>
@@ -37,7 +36,7 @@
 				</p>
 				<p>
 					<label for="ubicación">Ubicación</label>
-					<input type="text" id="ubicación">
+					<input type="text" id="ubicacion">
 				</p>
 				<p>
 					<label for="temperatura">Temperatura</label>
@@ -48,24 +47,28 @@
 					<input type="text" id="contacto"  min="1" max="40">
 				</p>
 				<p>
-					<label for="cordenadas">Cordenadas</label>
-					<input type="number" id="cordenadas"  min="1" max="40">
+					<label for="coordenadas">Coordenadas</label>
+					<input type="text" id="coordenadas" placeholder="Haz click en el mapa" min="1" max="40">
 				</p>
 			</div>
 			<div class="historia">
 				<textarea id="descripcion" rows="4" cols="30" placeholder="Escribe algo sobre este nuevo sitio"></textarea>
 				<textarea id="historia" rows="4" cols="30" placeholder="Cuentanos la historia del sitio que deseas crear"></textarea>
+				<input type="submit" value="Guardar">
+			</div>
+			<div class="mapaC">
+				<div id="mapaAgregar"></div>
 			</div>
 		</form>
 	</div>
 	<form action="" class="login">
 		<p>
 			<label for="user">Usuario</label>
-			<input type="text" id="user">
+			<input type="text" id="user" value="admin">
 		</p>
 		<p>
 			<label for="password">Contraseña</label>
-			<input type="password" id="password">
+			<input type="password" id="password" value="admin">
 		</p>
 		<input type="submit" value="Iniciar">
 	</form>
@@ -85,6 +88,9 @@
 			IU. CESMAG
 		</h3>
 	</footer>
+	<script type="text/javascript"
+      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBwvx8XhEvlSgeH1FHLCJ3F4MU_R8qs-sE&sensor=SET_TO_TRUE_OR_FALSE">
+    </script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
 	<script src="js/index.js"></script>
 </body>
