@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/index.css">
         <link href="css/estilo_M.css" rel="stylesheet">
-	<script src="http://maps.google.com/maps/api/js?sensor=false&language=es"></script>
 </head>
 <body>
 	<header>
@@ -52,16 +51,28 @@
 					<label for="coordenadas">Coordenadas</label>
 					<input type="text" id="coordenadas" placeholder="Haz click en el mapa" min="1" max="40">
 				</p>
+				<p>
+					<label for="tiposSitio">Tipo sitio</label>
+					<select name="" id="">
+						<option value="1">Religioso</option>
+						<option value="2">Turistico</option>
+						<option value="3">Otro</option>
+					</select>
+				</p>
 			</div>
 			<div class="historia">
 				<textarea id="descripcion" rows="4" cols="30" placeholder="Escribe algo sobre este nuevo sitio"></textarea>
 				<textarea id="historia" rows="4" cols="30" placeholder="Cuentanos la historia del sitio que deseas crear"></textarea>
-
 				<input type="submit" value="Guardar">
 			</div>
 			<div class="mapaC">
 				<div id="mapaAgregar"></div>
 			</div>
+		</form>
+		<form id="uploadImg" class="formImg" action="php/upload.php" method="post" enctype="multipart/form-data" target="hiddenIframe">
+			<label for="imgMin" >Cargar Foto</label>
+			<input type="file" id="imgMin" name="Filedata">
+			<img src="" class="thumbnail">
 		</form>
 	</div>
 	<form action="" class="login">
@@ -83,90 +94,28 @@
 		 ?>
 	</section>
 	<section class="mapaGeneral">
-		<div class="map_canvas"></div>
-		<input type="text" placeholder="Sitios registrados">
+		<label for="listMaps">Sitios turisticos</label>
+		<select id="listMaps">
+			<option>[Seleccione lugar]</option>
+			<?php   	
+				$sql = "SELECT nombre, tipo_sitio, coordenadas FROM sitios";
+				$result = mysql_query($sql);
+					while($data = mysql_fetch_array($result)){
+					echo "<option name='{$data['tipo_sitio']}' value='{$data['coordenadas']}'>{$data['nombre']}</option>";
+				}
+			?>
+        </select>
+		<div class="mapaSelect">
+			<div id="gMap"></div>
+		</div>
 
+		<iframe id="hiddenIframe" style="display: none;"></iframe>
 	</section>
 	<footer>
 		<h3>
 			IU. CESMAG
 		</h3>
 	</footer>
-
-<!-- Buscador de sitios ------------------>
-<h4>Localizacion de sitios turisticos </h4>	
-        <select onchange="ver();" id="lst1">
-                <option>[Seleccione lugar]</option>
-             <?php   	
-             $sql = "SELECT * FROM sitios ORDER BY id DESC";
-             $result = mysql_query($sql);
-                while($data = mysql_fetch_array($result)){
-                    echo "<option>{$data['nombre']}</option>";
-                }
-             ?>
-        </select>
-        <hr>
-        <div id="mapa"></div>
-<?php
-
-	$sql = "SELECT * FROM sitios ORDER BY id DESC";
-	$result = mysql_query($sql);
-	echo '        
-        <script>
-		//https://developers.google.com/maps/documentation/javascript/overlays?hl=es&csw=1
-		var map, geocoder;
-		geocoder = new google.maps.Geocoder();
-
-		window.onload = function(){
-		    var options = {
-			zoom: 8, //MAS GRANDE MAS CERCA 
-			center: new google.maps.LatLng(1.21358,-77.277957),
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-			//tipos de mapas SATELLITE TERRAIN
-		    };
-		    map = new google.maps.Map(document.getElementById("mapa"), options);
-		}
-	
-		function ver(){
-		   var latitud = new google.maps.LatLng(1.21358,-77.277957);
-		   var mensaje = "";
-		   var i = document.getElementById("lst1").selectedIndex;
-		   var val = document.getElementById("lst1").value; 
-                   var ico = "";   ';
-		$i = 0;
-		while($data = mysql_fetch_array($result)){
-			$i++;
-                        if($data['tipo_sitio'] == "religioso"){
-                            $ico = "image/ico/religioso.png";
-                        }else if($data['tipo_sitio'] == "turistico"){
-                            $ico = "image/ico/turistico.png";
-                        }else {
-				$ico = "image/ico/img3.png";
-			}
-			echo  " 
-			   if (i=={$i}) {
-			       //var lat = '{$data['lat']}';
-			       //var lon = '{$data['lng']}';
-                               mensaje = '{$data['nombre']}';
-			       latitud = new google.maps.LatLng{$data['coordenadas']};
-                               ico = '{$ico}';
-			   }";
-
-		}
-		echo '   
-		   var marker = new google.maps.Marker({
-			position: latitud,
-			title: mensaje,
-                        icon: ico
-		    });
-                  
-		   //marker.setIcon("imgs/img3.png");
-		   marker.setMap(map);
-		}
-	</script> ';
-                ?>
-<!--End buscador de sitios ------------>
-
 	<script type="text/javascript"
       src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBwvx8XhEvlSgeH1FHLCJ3F4MU_R8qs-sE&sensor=SET_TO_TRUE_OR_FALSE">
     </script>
