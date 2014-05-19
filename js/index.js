@@ -1,4 +1,5 @@
-var mapG, lat, lng;
+var map, mapG, lat, lng, idAux;
+var edit = false;
 window.onload = function(){
 	loadGMap();
 }
@@ -12,19 +13,57 @@ $(function(){
 	});
 	$('#agregar').on('click', function(event) {
 		event.preventDefault();
+		edit = false;
 		$('.agregar').toggle("slide",function(){
 			initialize();
 		});
+	});
+	$('.sitios').on('click','.edit, .delete', function(){
+		var id = $(this).prop("hash").substring(1);
+		var op = $(this).prop("class");
+		var res;
+		if(op == "delete"){
+			res = confirm("Realmente desea eliminar este sitio");
+			if (res == true) {
+				$.post('php/procesos.php', {op: op, id:id}, function(data) {
+					$('#'+id).hide("slide",function(){
+						$('#'+id).remove();
+					});
+				});
+			};
+		}else{
+			$.post('php/procesos.php', {op: op, id:id}, function(data) {
+				edit = true;
+				var data = JSON.parse(data);
+				idAux = data['id'];
+				console.log(idAux);
+				$('#nombre').val(data['nombre']);
+				$('#ubicacion').val(data['ubicacion']);
+				$('#temperatura').val(data['temperatura']);
+				$('#contacto').val(data['contacto']);
+				$('#coordenadas').val(data['coordenadas']);
+				$('#historia').val(data['historia']);
+				$('#descripcion').val(data['descripcion']);
+
+				var cad = data['coordenadas'];
+				var pos = cad.indexOf(',');
+				var lat = cad.substring(1,pos);
+				var lng = cad.substring(pos+1,cad.length-1);
+				loc = new google.maps.LatLng(lat,lng);
+				placeMarker(loc, map, $('#listMaps option:selected').attr('name'));
+			});
+			$('.agregar').show('slide');
+			initialize();
+		}
+		
 	});
 	$('#listMaps').on("change", function(){
 		var cad = $(this).val();
 		var pos = cad.indexOf(',');
 		var lat = cad.substring(1,pos);
 		var lng = cad.substring(pos+1,cad.length-1);
-		console.log(lat,lng);
 		loc = new google.maps.LatLng(lat,lng);
-		console.log(loc);
-		placeMarker(loc, mapG);
+		placeMarker(loc, mapG, $('#listMaps option:selected').attr('name'));
 	});
 	$('#imgMin').on("change", function(event){
 		var file = event.target.files; 
@@ -41,21 +80,32 @@ $(function(){
 		var variables = new Array();
 
 		$('#uploadImg').submit();
-		variables.push($('#nombre').val());
-		variables.push($('#ubicacion').val());
-		variables.push($('#temperatura').val());
-		variables.push($('#contacto').val());
-		variables.push($('#coordenadas').val());
-		variables.push($('#descripcion').val());
-		variables.push($('#historia').val());
-		variables.push(name);
-		console.log(JSON.stringify(variables));
-		$.post('php/procesos.php',{op:"addSitio", data:variables}, function(data, textStatus, xhr) {
-			ext = name.substring(name.length -3);
-			console.log(ext);
-			template(data, name, variables[0], variables[5]);
-			$('#agregarSitio input').val();
-		});
+		variables.push($('#nombre').val());  		// 0
+		variables.push($('#ubicacion').val());		// 1
+		variables.push($('#temperatura').val());	// 2
+		variables.push($('#contacto').val());		// 3
+		variables.push($('#coordenadas').val());	// 4
+		variables.push($('#descripcion').val());	// 5
+		variables.push($('#historia').val());		// 6
+		variables.push(name);						// 7
+		variables.push($('#tiposSitio option:selected').text());	// 8
+		variables.push(idAux)											// 9
+
+		if (edit == true) {
+			$.post('php/procesos.php',{op:"updateSitio", data:variables}, function(data, textStatus, xhr) {
+				ext = name.substring(name.length -3);
+				act = actualizaTemplate(data, name, variables[0], variables[5]);
+				$('#'+idAux).html(act);
+				$('#agregarSitio input').val();
+			});
+		}else{
+			$.post('php/procesos.php',{op:"addSitio", data:variables}, function(data, textStatus, xhr) {
+				ext = name.substring(name.length -3);
+				template(data, name, variables[0], variables[5]);
+				$('#listMaps').prepend('<option name="'+variables[8]+'" value="'+variables[4]+'">'+variables[0]+'</option>');
+				$('#agregarSitio input').val();
+			});
+		}
 	})
 	$('.login').on('submit', function(event){
 		event.preventDefault();
@@ -89,23 +139,30 @@ function initialize() {
 		streetViewControl: false,
 		mapTypeId: google.maps.MapTypeId.ROADMAP 
 	};
-	var map = new google.maps.Map(document.getElementById("mapaAgregar"),mapOptions);
+	map = new google.maps.Map(document.getElementById("mapaAgregar"),mapOptions);
 	google.maps.event.addListener(map, 'click', function(event) {
 		marker.setMap(null);
 		placeMarker(event.latLng, map);
 	});
 }
-function placeMarker(location, map2) {
-	console.log(location, map2);
-	 marker = new google.maps.Marker({
+function placeMarker(location, map2, ico) {
+	icon = ico || "";
+	if(icon != ""){
+		icon = "image/ico/"+ico+".png";
+	}
+	marker = new google.maps.Marker({
 		position: location,
-		map: map2
+		map: map2,
+		icon: icon
 	});
 	$('#coordenadas').val(location);
-	lat = location.A;
 }
 
 function template(id,imgMin, titulo, parrafo){
-	var article = '<article><figure> <img src="image/sitios/'+imgMin+'" alt="imagen"> </figure> <div class="acciones"> <a href="#'+id+'" class="editar"></a> <a href="#'+id+'" class="borrar"></a> </div> <h3> '+titulo+'</h3> <p>'+parrafo+'</p> <a href="#'+id+'" class="moreInfo">Mas información</a> </article>'; 
+	var article = '<article id="'+id+'"><figure> <img src="image/sitios/'+imgMin+'" alt="imagen"> </figure> <div class="acciones"> <a href="#'+id+'" class="edit"></a> <a href="#'+id+'" class="delete"></a> </div> <h3> '+titulo+'</h3> <p>'+parrafo+'</p> <a href="#'+id+'" class="moreInfo">Mas información</a> </article>'; 
 	$('.sitios').prepend(article);
+}
+function actualizaTemplate(id,imgMin, titulo, parrafo){
+	var article = '<figure> <img src="image/sitios/'+imgMin+'" alt="imagen"> </figure> <div class="acciones"> <a href="#'+id+'" class="edit"></a> <a href="#'+id+'" class="delete"></a> </div> <h3> '+titulo+'</h3> <p>'+parrafo+'</p> <a href="#'+id+'" class="moreInfo">Mas información</a>'; 
+	return article;
 }

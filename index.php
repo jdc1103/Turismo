@@ -53,7 +53,7 @@
 				</p>
 				<p>
 					<label for="tiposSitio">Tipo sitio</label>
-					<select name="" id="">
+					<select name="" id="tiposSitio">
 						<option value="1">Religioso</option>
 						<option value="2">Turistico</option>
 						<option value="3">Otro</option>
