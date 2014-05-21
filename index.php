@@ -12,7 +12,6 @@
 	<title>Turismo Nariño</title>
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/index.css">
-        <link href="css/estilo_M.css" rel="stylesheet">
 </head>
 <body>
 	<header>
