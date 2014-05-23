@@ -60,7 +60,9 @@
 				'.$titulo.'
 			</h3>
 			<p>'.$parrafo.'</p>
-			<a href="#'.$id.'" class="moreInfo">Mas información</a>
+
+			<a href="javascript:void(0);" onClick="ver('.$id.');" class="modal moreInfo" url="php/ver_mas.php?id='.$id.'">Mas Información</a><br /><br />
+
 		</article>';
 		echo $article;
 	}
