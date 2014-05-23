@@ -1,2 +1,2 @@
-stylus -c -w index.styl
+stylus -c -w ./
 pause

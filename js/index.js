@@ -18,6 +18,15 @@ $(function(){
 			initialize();
 		});
 	});
+	$('.moreInfo').on('click', function(event) {
+		event.preventDefault();
+		var id = $(this).prop("hash").substring(1);
+		$(location).attr('href', 'sitio.php?id='+id);
+	});
+	$('#guardar').on('click', function(event) {
+		event.preventDefault();
+		/* AQUI COLOCA EL CODIGO QUE NECESITES PARA LO DE EXPORTAR A PDF */
+	});
 	$('.sitios').on('click','.edit, .delete', function(){
 		var id = $(this).prop("hash").substring(1);
 		var op = $(this).prop("class");

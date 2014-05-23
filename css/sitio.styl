@@ -116,62 +116,59 @@ nav
 .sitios
 	display inline-block
 	width 60%
-	height 560px
-	overflow-y scroll
+	height 450px
+	overflow-y hidden
 	overflow-x hidden
 
 	article
 		border solid 1px gris_oscuro
-		border-radius 0 0 10px 10px
+		border-radius 0 0 10px 10px inside
 		box-shadow 1px 1px 5px rgba(black, 0.5)
 		display inline-block
+		height 90%
 		margin-top 0.5em
-		overflow hidden
-		width 45%
-		height 16em
+		overflow-x hidden
+		overflow-y scroll
 		position relative
-		&:nth-child(odd)
-			margin-right 3%
+		width 95%
+		
+		h4
+			color azul
+			padding .5em
+			margin 0
 
-		.moreInfo
+	.info
+		//position absolute
+		background verde
+		border-radius 5px
+		border solid verde
+		width 95%
+
+		.temperatura
+			padding-left 1em
+			display inline-block
+			width 20%
+
+			&::before
+				padding-right 5px
+				font-family iconos
+				content "\e4"
+
+		.contacto
+			&::before
+				padding-right 5px
+				font-family iconos
+				content "\e0"
+
+		p
+			padding 0 .5em 0 .5em
+
+		.titulo
 			background gris_oscuro
-			border-radius 0 0 10px 10px
-			top 15em
-			left 0
-			position absolute
-			text-align center
-			width 100%
-			text-decoration none
 			color gris_texto
-
-		.acciones
-			background azul
-			border solid 1px azul
-			border-radius 0 0 0 5px
-			border-right transparent
-			border-top transparent
-			box-shadow 0px 0px 10px darken(azul, 50%)
-			display none
-			float right
-			height 1.1em
-			width 4em
-			
-			a
-				display inline-block
-				text-align center
-				text-decoration none
-				width 45%
-				
-				&:hover
-					background darken(azul, 10%)
-					border-radius 0 0 5px 5px
-			.edit:after
-					content "\e1"
-					font-family "iconos"
-			.delete:after
-					content "\e2"
-					font-family "iconos"
-			
+			padding 5px
+			margin 0
+		
 	figure
 		float left
 		margin 0 0.5em 0 0
@@ -179,6 +176,7 @@ nav
 		img
 			border-radius 0 0 20px 0
 			width 100px
+
 	p 
 		padding 0.5em
 		text-align justify
@@ -189,11 +187,25 @@ nav
 	float right
 	margin-top 0.5em
 	width 38%
+	height 450px
 	
-	.mapaSelect
+	figure
+		display inline-block
+		width 100%
+		height 50%
+		margin 0
+		padding 0
+		img
+			width 100%
+			height 100%
+			margin 0%
+			overflow hidden
+
+			
+	.mapaSitio
 		display block
 		width 100%	
-		height 400px
+		height 200px
 		#gMap
 			display block
 			height 100%
