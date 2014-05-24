@@ -175,33 +175,3 @@ function actualizaTemplate(id,imgMin, titulo, parrafo){
 	var article = '<figure> <img src="image/sitios/'+imgMin+'" alt="imagen"> </figure> <div class="acciones"> <a href="#'+id+'" class="edit"></a> <a href="#'+id+'" class="delete"></a> </div> <h3> '+titulo+'</h3> <p>'+parrafo+'</p> <a href="#'+id+'" class="moreInfo">Mas información</a>'; 
 	return article;
 }
-
-//desplega el popup para ver mas informacion del sitio
-    function ver(id){
-		var align = 'center';									//Valid values; left, right, center
-		var top = 50; 											//Use an integer (in pixels)
-		var width = 750; 										//Use an integer (in pixels)
-		var padding = 13;										//Use an integer (in pixels)
-		var backgroundColor = '#fafafa'; 						//Use any hex code
-		var source = "php/ver_mas.php?id="+id; 								//Refer to any page on your server, external pages are not valid e.g. http://www.google.co.uk
-		var borderColor = '#fff'; 							//Use any hex code
-		var borderWeight = 3; 									//Use an integer (in pixels)
-		var borderRadius = 5; 									//Use an integer (in pixels)
-		var fadeOutTime = 300; 									//Use any integer, 0 = no fade
-		var disableColor = '#555'; 							//Use any hex code
-		var disableOpacity = 40; 								//Valid range 0-100
-		var loadingImage = 'lib/release-0.0.1/loading.gif';		//Use relative path from this page
-			
-		//This method initialises the modal popup
-        modalPopup(align, top, width, padding, disableColor, disableOpacity, backgroundColor, borderColor, borderWeight, borderRadius, fadeOutTime, source, loadingImage);
-     
-		
-		//This method hides the popup when the escape key is pressed
-		$(document).keyup(function(e) {
-			if (e.keyCode == 27) {
-				closePopup(fadeOutTime);
-			}
-		});
-		
-    }
-

@@ -55,8 +55,6 @@
 					<select name="" id="tiposSitio">
 						<option value="1">Religioso</option>
 						<option value="2">Turistico</option>
-						<option value="2">Restaurante</option>
-						<option value="2">Parque</option>
 						<option value="3">Otro</option>
 					</select>
 				</p>
@@ -85,7 +83,6 @@
 			<label for="password">Contraseña</label>
 			<input type="password" id="password" value="admin">
 		</p>
-
 		<input type="submit" value="Iniciar">
 	</form>
 	<section class="sitios">
@@ -123,9 +120,5 @@
     </script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js" type="text/javascript"></script>
 	<script src="js/index.js"></script>
-
-<script language="javascript" src="js/modal.popup.js"></script>
-
-
 </body>
 </html>
